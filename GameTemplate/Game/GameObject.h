@@ -1,14 +1,17 @@
 #ifndef _GAMEOBJECT_H_
 #define _GAMEOBJECT_H_
 
-namespace tyEbgine {
+namespace tyEngine {
 	class GameObject;
 	class RenderContext;
 	typedef unsigned char  GameObjectPrio;
 	/*!
 	*@brief ゲームオブジェクト
 	*/
-
+	class TGameObject : Noncopyable {
+	public:
+		using TGameObjectIsBase = TGameObject;
+	};
 }
 class GameObject
 {
