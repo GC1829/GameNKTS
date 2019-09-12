@@ -6,6 +6,11 @@ Player::Player()
 {
 	//cmoファイルの読み込み。
 	m_model.Init(L"Assets/modelData/unityChan.cmo");
+	m_characon.Init(
+		30.0f,
+		100.0f,
+		m_position
+	);
 }
 
 
@@ -17,6 +22,9 @@ void Player::Update()
 {
 	//ワールド行列の更新。
 	m_model.UpdateWorldMatrix(CVector3::Zero(), CQuaternion::Identity(), CVector3::One());
+	m_movespeed.x += Pad().GetLStickXF() * 500.0f;
+	m_movespeed.z += Pad().GetLStickYF() * 500.0f;
+	m_model.UpdateWorldMatrix(m_position,m_rotation,m_scale);
 }
 void Player::Draw()
 {

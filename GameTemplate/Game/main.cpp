@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "system/system.h"
 #include "Player.h"
+#include "BackGround.h"
 #include "level/Level.h"
 
 ///////////////////////////////////////////////////////////////////
@@ -18,7 +19,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	
 	//プレイヤー
 	Player player;
-
+	BackGround background;
 	//ゲームループ。
 	while (DispatchWindowMessage() == true)
 	{
@@ -32,8 +33,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		g_physics.Update();
 		//プレイヤーの更新。
 		player.Update();
+		background.Update();
 		//プレイヤーの描画。
 		player.Draw();
+		background.Draw();
 		//カメラの更新。
 		g_camera3D.Update();
 		//描画終了。
