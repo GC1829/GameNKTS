@@ -24,7 +24,6 @@ void Player::Update()
 	m_model.UpdateWorldMatrix(CVector3::Zero(), CQuaternion::Identity(), CVector3::One());
 	m_movespeed.x += Pad().GetLStickXF() * 500.0f;
 	m_movespeed.z += Pad().GetLStickYF() * 500.0f;
-	m_model.UpdateWorldMatrix(m_position,m_rotation,m_scale);
 }
 void Player::Draw()
 {
