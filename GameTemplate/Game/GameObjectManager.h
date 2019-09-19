@@ -13,7 +13,7 @@ public:
 	/// ゲームオブジェクトを追加
 	/// </summary>
 	template <class T>
-	T* NewGameObject()
+	T* NewGO()
 	{
 		T* newObj = new T;
 		m_goList.push_back(newObj);
@@ -23,7 +23,7 @@ public:
 	/// ゲームオブジェクトをリストから、削除する。
 	/// </summary>
 	/// <param name="go">削除するゲームオブジェクト</param>
-	void DeleteGameObject(IGameObject* go)
+	void DeleteGO(IGameObject* go)
 	{
 		//リストから検索して、見つかったら削除する。
 		for (auto it = m_goList.begin();

@@ -119,6 +119,7 @@
     <ClCompile Include="GameObjectManager.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="Game.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -212,6 +213,7 @@
     <ClInclude Include="GameObjectManager.h">
       <Filter>GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="Game.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
