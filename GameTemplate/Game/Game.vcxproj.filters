@@ -34,9 +34,6 @@
     <Filter Include="GameObject">
       <UniqueIdentifier>{ea6e5597-b397-467a-9cd8-f9d3dc98e637}</UniqueIdentifier>
     </Filter>
-    <Filter Include="policy">
-      <UniqueIdentifier>{685952d4-060c-47d1-9419-9bd5df036098}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\Vector.cpp">
@@ -116,13 +113,12 @@
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="GameObject.cpp">
+    <ClCompile Include="IGameObject.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="GameObjectManager.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -210,16 +206,12 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="GameObject.h">
+    <ClInclude Include="IGameObject.h">
       <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Noncopyable.h">
-      <Filter>policy</Filter>
     </ClInclude>
     <ClInclude Include="GameObjectManager.h">
       <Filter>GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
