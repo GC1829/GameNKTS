@@ -1,7 +1,41 @@
 #include "stdafx.h"
-#include "SkinModel.h"
-#include "SkinModelDataManager.h"
 
+#include "SkinModel.h"
+#include "Shader.h"
+#include "SkinModelDataManager.h"
+/*!
+*@brief	モデルエフェクト。
+*@details
+* DirectX::Modelの描画処理で使用されるシェーダーを差し替えるためのクラス
+*/
+class C3DModelEffect : public DirectX::IEffect {
+private:
+	Shader m_vsShader;
+	Shader m_psShader;
+public:
+	//コンストラクタ。
+	C3DModelEffect()
+	{
+		//頂点シェーダーをロード。
+		m_vsShader.Load("Assets/shader/model.fx", "VSMain", Shader::EnType::VS);
+		m_psShader.Load("Assets/shader/model.fx", "PSMain", Shader::EnType::PS);
+	}
+	//この関数はDirectX::Model::Draw内部のドローコールの直前に呼ばれる。
+	//なので、この関数のなかで、シェーダーの設定や、テクスチャの設定などを行うとよい。
+	void __cdecl Apply(ID3D11DeviceContext* deviceContext) override
+	{
+		//シェーダーを適用する。
+		deviceContext->VSSetShader((ID3D11VertexShader*)m_vsShader.GetBody(), NULL, 0);
+		deviceContext->PSSetShader((ID3D11PixelShader*)m_psShader.GetBody(), NULL, 0);
+	}
+	//この関数はDirectX::Modelの初期化処理から呼ばれる。
+	//頂点シェーダーのバイトコードとコードの長さを設定する必要がある。
+	void __cdecl GetVertexShaderBytecode(void const** pShaderByteCode, size_t* pByteCodeLength) override
+	{
+		*pShaderByteCode = m_vsShader.GetByteCode();
+		*pByteCodeLength = m_vsShader.GetByteCodeSize();
+	}
+};
 SkinModel::~SkinModel()
 {
 	if (m_cb != nullptr) {
@@ -12,18 +46,21 @@ SkinModel::~SkinModel()
 		//サンプラステートを解放。
 		m_samplerState->Release();
 	}
+	//ライト用の定数バッファの開放
+	if (m_lightCb != nullptr) {
+		m_lightCb->Release();
+	}
 }
 void SkinModel::Init(const wchar_t* filePath, EnFbxUpAxis enFbxUpAxis)
 {
 	//スケルトンのデータを読み込む。
 	InitSkeleton(filePath);
-
 	//定数バッファの作成。
 	InitConstantBuffer();
-
 	//サンプラステートの初期化。
 	InitSamplerState();
-
+	//ディレクションライトの初期化
+	InitDirectionLight();
 	//SkinModelDataManagerを使用してCMOファイルのロード。
 	m_modelDx = g_skinModelDataManager.Load(filePath, m_skeleton);
 
@@ -67,6 +104,11 @@ void SkinModel::InitConstantBuffer()
 																//CPUアクセスが不要な場合は0。
 	//作成。
 	g_graphicsEngine->GetD3DDevice()->CreateBuffer(&bufferDesc, NULL, &m_cb);
+
+	//続いて、ライト用の定数バッファを作成。
+	//作成するバッファのサイズを変更するだけ。
+	bufferDesc.ByteWidth = sizeof(SDirectionLight);
+	g_graphicsEngine->GetD3DDevice()->CreateBuffer(&bufferDesc, NULL, &m_lightCb);
 }
 void SkinModel::InitSamplerState()
 {
@@ -116,9 +158,11 @@ void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix)
 	vsCb.mProj = projMatrix;
 	vsCb.mView = viewMatrix;
 	d3dDeviceContext->UpdateSubresource(m_cb, 0, nullptr, &vsCb, 0, 0);
+	//ライト用の定数バッファを更新
+	d3dDeviceContext->UpdateSubresource(m_lightCb, 0, nullptr, &m_dirLight, 0, 0);
 	//定数バッファをGPUに転送。
 	d3dDeviceContext->VSSetConstantBuffers(0, 1, &m_cb);
-	d3dDeviceContext->PSSetConstantBuffers(0, 1, &m_cb);
+	d3dDeviceContext->PSSetConstantBuffers(0, 1, &m_lightCb);
 	//サンプラステートを設定。
 	d3dDeviceContext->PSSetSamplers(0, 1, &m_samplerState);
 	//ボーン行列をGPUに転送。
