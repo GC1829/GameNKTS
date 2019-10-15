@@ -20,12 +20,14 @@ Player::~Player()
 
 void Player::Update()
 {
+	m_movespeed.x = g_pad[0].GetLStickXF() * 200.0f;
+	m_movespeed.z = g_pad[0].GetLStickYF() * 200.0f;
+	
+	//m_position = m_characon.Execute(1.0f / 60.0f, m_movespeed);
 	//ワールド行列の更新。
-	m_model.UpdateWorldMatrix(CVector3::Zero(), CQuaternion::Identity(), CVector3::One());
-	m_movespeed.x += Pad().GetLStickXF() * 500.0f;
-	m_movespeed.z += Pad().GetLStickYF() * 500.0f;
 
-	m_position = m_characon.Execute(1.0f, m_movespeed);
+	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
+	
 }
 void Player::Draw()
 {
