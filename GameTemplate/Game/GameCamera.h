@@ -1,5 +1,5 @@
 #pragma once
-
+#include "GameObjectManager.h"
 class Player;
 
 class GameCamera

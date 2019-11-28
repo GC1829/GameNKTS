@@ -5,6 +5,7 @@
 BackGround::BackGround()
 {
 	m_model.Init(L"Assets/modelData/rouka.cmo");
+	m_phyStaticObject.CreateMeshObject(m_model, CVector3::Zero(), CQuaternion::Identity());
 }
 
 

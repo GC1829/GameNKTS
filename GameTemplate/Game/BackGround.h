@@ -1,4 +1,6 @@
 #pragma once
+#include "physics/PhysicsStaticObject.h"
+#include "GameObjectManager.h"
 class BackGround
 {
 public:
@@ -8,5 +10,5 @@ public:
 	void Draw();
 private:
 	SkinModel m_model;
-	PhysicsWorld g_physics;
+	PhysicsStaticObject m_phyStaticObject;
 };

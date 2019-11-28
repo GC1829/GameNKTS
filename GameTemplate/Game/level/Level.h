@@ -10,6 +10,11 @@ struct LevelObjectData {
 	CVector3 position;		//<座標。
 	CQuaternion rotation;	//!<回転。
 	const wchar_t* name;	//!<名前。
+
+	bool EqualName(const wchar_t* n)
+	{
+		return wcscmp(name, n) == 0;
+	}
 };
 /*!
  * @brief	レベル

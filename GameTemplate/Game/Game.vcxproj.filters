@@ -34,6 +34,15 @@
     <Filter Include="GameObject">
       <UniqueIdentifier>{ea6e5597-b397-467a-9cd8-f9d3dc98e637}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Player">
+      <UniqueIdentifier>{b67b12cd-2e1b-4362-8afd-36ed17767028}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemy">
+      <UniqueIdentifier>{faad4d33-4617-4c0d-9353-175a27d01f69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BackGround">
+      <UniqueIdentifier>{e9842547-abc8-47b2-a390-f1b2e1012f1d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\Vector.cpp">
@@ -108,11 +117,8 @@
     <ClCompile Include="level\MapChip.cpp">
       <Filter>level</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="BackGround.cpp" />
-    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="IGameObject.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
@@ -122,6 +128,18 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="GameCamera.cpp" />
+    <ClCompile Include="Player.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="BackGround.cpp">
+      <Filter>BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="MainRenderTarget.cpp" />
+    <ClCompile Include="ShadowMap.cpp" />
+    <ClCompile Include="C3DModelDraw.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -205,10 +223,7 @@
     <ClInclude Include="level\MapChip.h">
       <Filter>level</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="BackGround.h" />
-    <ClInclude Include="Enemy.h" />
     <ClInclude Include="IGameObject.h">
       <Filter>GameObject</Filter>
     </ClInclude>
@@ -218,6 +233,18 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="GameCamera.h" />
+    <ClInclude Include="Player.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="BackGround.h">
+      <Filter>BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="MainRenderTarget.h" />
+    <ClInclude Include="ShadowMap.h" />
+    <ClInclude Include="C3DModelDraw.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
@@ -227,6 +254,9 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\kurosuke.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\enemy.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>

@@ -36,11 +36,22 @@ Player::~Player()
 
 void Player::Update()
 {
-	m_movespeed.x = g_pad[0].GetLStickXF() * 400.0f;
-	m_movespeed.z = g_pad[0].GetLStickYF() * 400.0f;
+	if (m_movespeed.x = g_pad[0].GetLStickXF() * 700.0f)
+	{
+		m_animation.Update(1.0f / 30.0f);
+	}
+	if (m_movespeed.z = g_pad[0].GetLStickYF() * 700.0f)
+	{
+		m_animation.Update(1.0f / 30.0f);
+	}
 	m_position = m_characon.Execute(1.0f / 60.0f, m_movespeed);
+
+	//向きの変更
+	if (fabsf(m_movespeed.x) > 0.1f || fabsf(m_movespeed.z) > 0.1f) {
+		m_rotation.SetRotation(CVector3::AxisY(), atan2f(m_movespeed.x, m_movespeed.z));
+	}
 	//ワールド行列の更新。
-	m_animation.Update(1.0f / 30.0f);
+	//m_animation.Update(1.0f / 30.0f);
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 }
 void Player::Draw()

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "system/system.h"
 #include "Player.h"
+#include "Enemy.h"
 #include "GameCamera.h"
 #include "BackGround.h"
 #include "level/Level.h"
@@ -17,13 +18,27 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	/*g_camera3D.SetPosition({ 0.0f, 300.0f, 500.0f });
 	g_camera3D.SetTarget({ 0.0f, 100.0f, 0.0f });
 	g_camera3D.SetFar(10000.0f);*/
-	
 	//プレイヤー
 	Player player;
-	player.SetPosition({ 00.0f,0.0f,0.0f });
+	player.SetPosition({ 00.0f,0.0f,-1000.0f });
+	//ゲームカメラ
 	GameCamera gamecamera;
 	gamecamera.SetPlayer(&player);
+	//背景
 	BackGround background;
+	//レベル
+	Level m_level;
+	std::vector< Enemy* > enemyList;
+	//レベルを初期化。
+	m_level.Init(L"Assets/level/rouka.tkl", [&](LevelObjectData& objData) {
+		if (objData.EqualName(L"enemy") == true) {
+			//Star。
+			auto enemy = new Enemy(objData.position, objData.rotation, &player);
+			enemyList.push_back(enemy);
+			return true;
+		}
+		return false;
+	});
 	//ゲームループ。
 	while (DispatchWindowMessage() == true)
 	{
@@ -37,10 +52,19 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		g_physics.Update();
 		//プレイヤーの更新。
 		player.Update();
+		for (auto& enemy : enemyList) {
+			enemy->Update();
+		}
 		gamecamera.Update();
 		background.Update();
 		//プレイヤーの描画。
 		player.Draw();
+		//レベルを描画
+		m_level.Draw();
+		//エネミーを描画
+		for (auto& enemy : enemyList) {
+			enemy->Draw();
+		}
 		background.Draw();
 		//カメラの更新。
 		g_camera3D.Update();
