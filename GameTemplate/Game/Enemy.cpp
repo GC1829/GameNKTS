@@ -16,32 +16,62 @@ Enemy::~Enemy()
 {
 }
 
+bool Enemy::IsFind()
+{
+	CVector3 toPlayerDir = m_player->GetPosition() - m_position;
+	float len = toPlayerDir.Length();
+	//正規化
+	toPlayerDir.Normalize();
+	if (len < 400.0f) {
+		return true;
+	}
+	return false;
+}
+
+void Enemy::Nomal()
+{
+	if (IsFind() == true) {
+		//プレイヤーを発見
+		//プレイヤーの追従処理
+		m_state = enState_Follow;
+	}
+}
+
+void Enemy::Update_Follow()
+{
+	CVector3 toPlayer = m_player->GetPosition() - m_position;
+	float len = toPlayer.Length();
+	toPlayer.Normalize();
+	m_position += toPlayer * 6.0f;
+
+	if (len > 450.0f)
+	{
+		Turn();
+	}
+}
+
+void Enemy::Turn()
+{
+	m_old.y = 100.0f;
+	m_position = m_old;
+}
+
 void Enemy::Update()
 {
-	if (state == 0) {
-		CVector3 toPlayerDir = m_player->GetPosition() - m_position;
-		float len = toPlayerDir.Length();
-		toPlayerDir.Normalize();
-		if (len < 400.0f) {
-
-			//m_position += toPlayer *= 5.0f;
-			state = 1;
-		}
-		if (state == 1) {
-			CVector3 toPlayer = m_player->GetPosition() - m_position;
-			//float len = toPlayer.Length();
-			toPlayer.Normalize();
-			m_position += toPlayer * 5.0f;
-		}
-		if (state == 2)
-		{
-
-		}
+	switch (m_state)
+	{
+	case Enemy::enState_Follow:
+		Update_Follow();
+		break;
+	case Enemy::enState_Nomal:
+		Nomal();
+		break;
+	case Enemy::enState_Turn:
+		Turn();
+		break;
 	}
 	m_rotation.SetRotation(CVector3::AxisY(), atan2f(m_rotation.x, m_rotation.z));
 
-	//向きの変更
-	//m_rotation.SetRotation(CVector3::AxisY(), atan2f(m_movespeed.x, m_movespeed.z));
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 }
 
