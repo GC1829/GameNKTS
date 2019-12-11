@@ -22,7 +22,7 @@ bool Enemy::IsFind()
 	float len = toPlayerDir.Length();
 	//ê≥ãKâª
 	toPlayerDir.Normalize();
-	if (len < 400.0f) {
+	if (len < FindPlayer) {
 		return true;
 	}
 	return false;
@@ -44,7 +44,7 @@ void Enemy::Update_Follow()
 	toPlayer.Normalize();
 	m_position += toPlayer * 6.0f;
 
-	if (len > 450.0f)
+	if (len > FollowPlayer)
 	{
 		Turn();
 	}
@@ -52,7 +52,7 @@ void Enemy::Update_Follow()
 
 void Enemy::Turn()
 {
-	m_old.y = 100.0f;
+	m_old.y = PositionUp;
 	m_position = m_old;
 }
 

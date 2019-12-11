@@ -43,6 +43,9 @@
     <Filter Include="BackGround">
       <UniqueIdentifier>{e9842547-abc8-47b2-a390-f1b2e1012f1d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sound">
+      <UniqueIdentifier>{149bdc71-ff8a-4aa7-94a8-c4cb779fdc12}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\Vector.cpp">
@@ -140,6 +143,18 @@
     <ClCompile Include="MainRenderTarget.cpp" />
     <ClCompile Include="ShadowMap.cpp" />
     <ClCompile Include="C3DModelDraw.cpp" />
+    <ClCompile Include="SoundEngin.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="WaveFileBank.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="WaveFile.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundSouce.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -245,6 +260,18 @@
     <ClInclude Include="MainRenderTarget.h" />
     <ClInclude Include="ShadowMap.h" />
     <ClInclude Include="C3DModelDraw.h" />
+    <ClInclude Include="SoundEngin.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="WaveFileBank.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="WaveFile.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundSouce.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
