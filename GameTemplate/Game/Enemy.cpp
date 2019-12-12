@@ -6,6 +6,7 @@ Enemy::Enemy(CVector3 pos, CQuaternion rot, Player* player) :
 	m_position(pos),
 	m_rotation(rot),  
 	m_player(player)
+
 {
 	//cmoファイルの読み込み。
 	m_model.Init(L"Assets/modelData/enemy.cmo");
@@ -43,7 +44,6 @@ void Enemy::Update_Follow()
 	float len = toPlayer.Length();
 	toPlayer.Normalize();
 	m_position += toPlayer * 6.0f;
-
 	if (len > FollowPlayer)
 	{
 		Turn();
@@ -54,6 +54,7 @@ void Enemy::Turn()
 {
 	m_old.y = PositionUp;
 	m_position = m_old;
+	m_state = enState_Nomal;
 }
 
 void Enemy::Update()

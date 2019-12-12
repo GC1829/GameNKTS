@@ -1,11 +1,30 @@
 #include "stdafx.h"
-#include "system/system.h"
-#include "Player.h"
-#include "Enemy.h"
-#include "GameCamera.h"
-#include "BackGround.h"
-#include "level/Level.h"
+#include "system/system.h""
+#include "Game.h"
+#include "GameObjectManager.h"
+#include "SoundEngin.h"
 
+using namespace std;
+
+void UpdateGame()
+{
+	//ゲームパッドの更新。	
+	for (auto& pad : g_pad) {
+		pad.Update();
+	}
+	g_goMgr.Update();
+	//物理エンジンの更新。
+	g_physics.Update();
+}
+
+void RenderGame()
+{
+	//描画開始。
+		g_graphicsEngine->BegineRender();
+		g_goMgr.Update();
+	//描画終了。
+		g_graphicsEngine->EndRender();
+}
 ///////////////////////////////////////////////////////////////////
 // ウィンドウプログラムのメイン関数。
 ///////////////////////////////////////////////////////////////////
@@ -13,58 +32,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 {
 	//ゲームの初期化。
 	InitGame(hInstance, hPrevInstance, lpCmdLine, nCmdShow, "Game");
-
-	//プレイヤー
-	Player player;
-	player.SetPosition({ 00.0f,0.0f,-1000.0f });
-	//ゲームカメラ
-	GameCamera gamecamera;
-	gamecamera.SetPlayer(&player);
-	//背景
-	BackGround background;
-	//レベル
-	Level m_level;
-	std::vector< Enemy* > enemyList;
-	//レベルを初期化。
-	m_level.Init(L"Assets/level/rouka.tkl", [&](LevelObjectData& objData) {
-		if (objData.EqualName(L"enemy") == true) {
-			//Star。
-			auto enemy = new Enemy(objData.position, objData.rotation, &player);
-			enemyList.push_back(enemy);
-			return true;
-		}
-		return false;
-	});
+	g_goMgr.NewGO<Game>();
 	//ゲームループ。
 	while (DispatchWindowMessage() == true)
 	{
-		//描画開始。
-		g_graphicsEngine->BegineRender();
-		//ゲームパッドの更新。	
-		for (auto& pad : g_pad) {
-			pad.Update();
-		}
-		//物理エンジンの更新。
-		g_physics.Update();
-		//プレイヤーの更新。
-		player.Update();
-		for (auto& enemy : enemyList) {
-			enemy->Update();
-		}
-		gamecamera.Update();
-		background.Update();
-		//プレイヤーの描画。
-		player.Draw();
-		//レベルを描画
-		m_level.Draw();
-		//エネミーを描画
-		for (auto& enemy : enemyList) {
-			enemy->Draw();
-		}
-		background.Draw();
-		//カメラの更新。
-		g_camera3D.Update();
-		//描画終了。
-		g_graphicsEngine->EndRender();
+		UpdateGame();
+
+		RenderGame();
 	}
 }

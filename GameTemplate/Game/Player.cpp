@@ -5,7 +5,7 @@
 Player::Player()
 {
 	//cmoファイルの読み込み。
-	m_model.Init(L"Assets/modelData/unityChan.cmo", enFbxUpAxisY);
+	m_model.Init(L"Assets/modelData/unityChan.cmo", enFbxUpAxisZ);
 	
 	//tkaファイルの読み込み。
 	m_animationClips[0].Load(L"Assets/animData/walk.tka");
@@ -38,11 +38,11 @@ void Player::Update()
 {
 	if (m_movespeed.x = g_pad[0].GetLStickXF() * 700.0f)
 	{
-		m_animation.Update(1.0f / 30.0f);
+		//m_animation.Update(1.0f / 30.0f);
 	}
 	if (m_movespeed.z = g_pad[0].GetLStickYF() * 700.0f)
 	{
-		m_animation.Update(1.0f / 30.0f);
+		//m_animation.Update(1.0f / 30.0f);
 	}
 	m_position = m_characon.Execute(1.0f / 60.0f, m_movespeed);
 
