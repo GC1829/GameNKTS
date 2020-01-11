@@ -1,6 +1,8 @@
 #pragma once
 #include "GameObjectManager.h"
 #include "character/CharacterController.h"
+#include "SoundEngin.h"
+#include "SoundSouce.h"
 
 class Player
 {
@@ -19,6 +21,7 @@ public:
 		return m_position;
 	}
 private:
+	SoundEngine m_soundEngine;
 	SkinModel m_model;	//スキンモデル。
 	Animation m_animation;
 	AnimationClip m_animationClips[2];
@@ -28,5 +31,6 @@ private:
 	CVector3 m_scale = CVector3::One();
 	CVector3 m_movespeed = CVector3::Zero();
 	CharacterController m_characon;
+	SoundSource m_bgm;
 };
 

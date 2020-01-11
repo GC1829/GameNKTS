@@ -155,6 +155,7 @@
     <ClCompile Include="SoundSouce.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
+    <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -272,6 +273,7 @@
     <ClInclude Include="SoundSouce.h">
       <Filter>Sound</Filter>
     </ClInclude>
+    <ClInclude Include="Title.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

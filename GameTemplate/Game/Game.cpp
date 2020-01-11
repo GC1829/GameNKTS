@@ -16,8 +16,8 @@ Game::Game()
 
 	m_soundEngine.Init();
 
-	m_bgm.Init(L"Assets/sound/noroinouta.wav");
-	m_bgm.Play(true);
+	//m_bgm.Init(L"Assets/sound/noroinouta.wav");
+	//m_bgm.Play(true);
 
 	//ƒŒƒxƒ‹‚ğ‰Šú‰»B
 	m_level.Init(L"Assets/level/rouka.tkl", [&](LevelObjectData& objData) {
@@ -57,6 +57,7 @@ void Game::Update()
 	}
 	m_soundEngine.Update();
 	m_camera.Update();
+
 }
 
 void Game::Draw()
