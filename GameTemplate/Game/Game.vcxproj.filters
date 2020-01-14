@@ -156,6 +156,7 @@
       <Filter>Sound</Filter>
     </ClCompile>
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="GameOver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -274,6 +275,7 @@
       <Filter>Sound</Filter>
     </ClInclude>
     <ClInclude Include="Title.h" />
+    <ClInclude Include="GameOver.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

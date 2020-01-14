@@ -25,9 +25,9 @@ private:
 		enState_Nomal,
 		enState_Turn
 	};
-	int FollowPlayer = 450.0f;							//プレイヤー追従
-	int FindPlayer = 400.0f;							//プレイヤー発見
-	int PositionUp = 100.0f;
+	float FollowPlayer = 450.0f;							//プレイヤー追従
+	float FindPlayer = 400.0f;							//プレイヤー発見
+	float PositionUp = 100.0f;
 	SkinModel m_model;									//スキンモデル。
 	CVector3 m_position = CVector3::Zero();				//座標
 	CVector3 m_old = CVector3::Zero();					//古い座標
