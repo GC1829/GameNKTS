@@ -46,6 +46,9 @@
     <Filter Include="Sound">
       <UniqueIdentifier>{149bdc71-ff8a-4aa7-94a8-c4cb779fdc12}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\Sprite">
+      <UniqueIdentifier>{5fc63fcf-3667-4588-a96c-5709be8fc919}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\Vector.cpp">
@@ -157,6 +160,9 @@
     </ClCompile>
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="GameOver.cpp" />
+    <ClCompile Include="Sprite.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -276,6 +282,9 @@
     </ClInclude>
     <ClInclude Include="Title.h" />
     <ClInclude Include="GameOver.h" />
+    <ClInclude Include="Sprite.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
@@ -290,5 +299,19 @@
     <MeshContentTask Include="Assets\modelData\enemy.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Chair.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Map.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\robot.png">
+      <Filter>Assets\Sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\kohaku.png">
+      <Filter>Assets\Sprite</Filter>
+    </ImageContentTask>
   </ItemGroup>
 </Project>

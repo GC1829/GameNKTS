@@ -7,6 +7,7 @@
 #include "level/Level.h"
 #include "SoundEngin.h"
 #include "SoundSouce.h"
+#include "Sprite.h"
 
 class Game : public IGameObject
 {
@@ -17,8 +18,14 @@ public:
 	void Draw();
 	void Render();
 private:
+	/// <summary>
+	/// 半透明合成のブレンドステートを初期化
+	/// </summary>
+	void InitTranslucentBlendState();
+private:
 	SoundEngine m_soundEngine;
 	Player m_player;
+	Sprite m_sprite;
 	GameCamera m_camera;
 	Level m_level;
 	BackGround m_ground;

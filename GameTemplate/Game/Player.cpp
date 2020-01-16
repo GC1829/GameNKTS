@@ -38,11 +38,11 @@ Player::~Player()
 
 void Player::Update()
 {
-	if (m_movespeed.x = g_pad[0].GetLStickXF() * 700.0f)
+	if (m_movespeed.x = g_pad[0].GetLStickXF() * -700.0f)
 	{
 		//m_animation.Update(1.0f / 30.0f);
 	}
-	if (m_movespeed.z = g_pad[0].GetLStickYF() * 700.0f)
+	if (m_movespeed.z = g_pad[0].GetLStickYF() * -700.0f)
 	{
 		//m_animation.Update(1.0f / 30.0f);
 	}

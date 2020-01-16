@@ -68,7 +68,7 @@
       <AdditionalDependencies>DirectXTK.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;d3d11.lib;d3dcompiler.lib;%(AdditionalDependencies);xinput.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;LinearMath_Debug.lib;XAudio2.lib;Winmm.lib</AdditionalDependencies>
     </Link>
     <ImageContentTask>
-      <ContentOutput>$(ProjectDir)\Resource\sprite\%(Filename).dds</ContentOutput>
+      <ContentOutput>$(ProjectDir)\Assets\sprite\%(Filename).dds</ContentOutput>
     </ImageContentTask>
     <MeshContentTask>
       <ContentOutput>$(ProjectDir)\Assets\modelData\%(Filename).cmo</ContentOutput>
@@ -137,6 +137,7 @@
     <ClCompile Include="ShadowMap.cpp" />
     <ClCompile Include="SoundEngin.cpp" />
     <ClCompile Include="SoundSouce.cpp" />
+    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -187,6 +188,7 @@
     <ClInclude Include="ShadowMap.h" />
     <ClInclude Include="SoundEngin.h" />
     <ClInclude Include="SoundSouce.h" />
+    <ClInclude Include="Sprite.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="system\system.h" />
     <ClInclude Include="Title.h" />
@@ -194,13 +196,21 @@
     <ClInclude Include="WaveFileBank.h" />
   </ItemGroup>
   <ItemGroup>
+    <MeshContentTask Include="Assets\modelData\Chair.fbx" />
     <MeshContentTask Include="Assets\modelData\enemy.fbx" />
     <MeshContentTask Include="Assets\modelData\kurosuke.fbx" />
+    <MeshContentTask Include="Assets\modelData\Map.fbx" />
     <MeshContentTask Include="Assets\modelData\rouka.FBX" />
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
       <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)\Assets\modelData\%(Filename).cmo</ContentOutput>
       <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)\Assets\modelData\%(Filename).cmo</ContentOutput>
     </MeshContentTask>
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\robot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\kohaku.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
