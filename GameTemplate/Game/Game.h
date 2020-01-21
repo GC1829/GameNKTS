@@ -31,6 +31,6 @@ private:
 	BackGround m_ground;
 	std::vector<Enemy*> enemyList;
 	SoundSource m_bgm;
+	ID3D11BlendState* m_translucentBlendState = nullptr;
 };
-
 extern Game* g_game;

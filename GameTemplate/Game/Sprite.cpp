@@ -206,6 +206,12 @@ void Sprite::Draw(CMatrix mView, CMatrix mProj)
 	//サンプラステートをレジスタs0にバインドする。
 	deviceContext->PSSetSamplers(0, 1, &m_samplerState);
 
+	ConstantBuffer mcb;
+	mcb.WVP = m_world;
+	mcb.WVP.Mul(mcb.WVP, g_camera2D.GetViewMatrix());
+	mcb.WVP.Mul(mcb.WVP, g_camera2D.GetProjectionMatrix());
+	mcb.alpha = m_alpha;
+
 	//頂点バッファを設定。
 	UINT stride = sizeof(Vertex);
 	UINT offset = 0;

@@ -99,3 +99,4 @@ private:
 };
 
 extern Camera g_camera3D;		//!<3DƒJƒƒ‰B
+extern Camera g_camera2D;

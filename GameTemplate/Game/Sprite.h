@@ -30,8 +30,22 @@ public:
 	/// <param name="mView">カメラ行列</param>
 	/// /// <param name="mView">プロジェクション行列</param>
 	void Draw(CMatrix mView, CMatrix mProj);
-private:
 	/// <summary>
+	/// aを変位させる
+	/// </summary>
+	void DeltaAlpha(float delta)
+	{
+		m_alpha += delta;
+		//数値の境界チェック
+		if (m_alpha > 1.0f) {
+			m_alpha = 1.0f;
+		}
+		else if (m_alpha < 0.0f) {
+			m_alpha = 0.0f;
+		}
+	}
+private:
+
 	/// シェーダーをロード。
 	/// </summary>
 	void LoadShader();
@@ -57,7 +71,10 @@ private:
 	/// <param name="textureFIlePath">ロードするテクスチャのファイルパス。</param>
 	void LoadTexture(const wchar_t* textureFIlePath);
 private:
-
+	struct ConstantBuffer {
+		CMatrix WVP;
+		float alpha;
+	};
 	Shader	m_vs;											//頂点シェーダー。
 	Shader	m_ps;											//ピクセルシェーダー。
 	ID3D11Buffer*	m_vertexBuffer = nullptr;	//VRAM上の頂点バッファにアクセスするためのインターフェース。
@@ -65,6 +82,8 @@ private:
 	ID3D11Buffer*	m_cbGPU = nullptr;			//GPU側の定数バッファにアクセスするためのインターフェース。
 	ID3D11ShaderResourceView* m_texture = nullptr;	//テクスチャにアクセスするためのインターフェース。
 	ID3D11SamplerState* m_samplerState = nullptr;	//サンプラステート。
-	CMatrix m_world = CMatrix::Identity();					//ワールド行列。
+	CMatrix m_world = CMatrix::Identity();	//ワールド行列。
+	float m_alpha = 1.0f;
+
 };
 
