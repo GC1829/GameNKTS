@@ -313,5 +313,8 @@
     <ImageContentTask Include="Assets\sprite\kohaku.png">
       <Filter>Assets\Sprite</Filter>
     </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\unity.png">
+      <Filter>Assets\Sprite</Filter>
+    </ImageContentTask>
   </ItemGroup>
 </Project>
