@@ -56,7 +56,7 @@ void Player::Update()
 	//m_animation.Update(1.0f / 30.0f);
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 
-	if (m_position.x == 10.0f)
+	if (m_position.x == -400.0f)
 	{
 		m_bgm.Init(L"Assets/sound/himei.wav");
 		m_bgm.Play(true);

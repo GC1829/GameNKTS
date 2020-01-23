@@ -12,28 +12,35 @@ Game* g_game = nullptr;
 
 Game::Game()
 {
-	m_sprite.Init(L"Assets/Sprite/unity.dds",10000, 10000);
+	
 	m_soundEngine.Init();
 
-	//m_bgm.Init(L"Assets/sound/noroinouta.wav");
-	//m_bgm.Play(true);
+//m_bgm.Init(L"Assets/sound/noroinouta.wav");
+//m_bgm.Play(true);
 
-	//レベルを初期化。
-	m_level.Init(L"Assets/level/School.tkl", [&](LevelObjectData& objData) {
-		if (objData.EqualName(L"enemy") == true) {
-			//Star。
-			auto enemy = new Enemy(objData.position, objData.rotation, &m_player);
-			enemyList.push_back(enemy);
-			return true;
-		}
-		return false;
-	});
+//レベルを初期化。
+m_level.Init(L"Assets/level/School.tkl", [&](LevelObjectData& objData) {
+	if (objData.EqualName(L"enemy") == true) {
+		//Star。
+		auto enemy = new Enemy(objData.position, objData.rotation, &m_player);
+		enemyList.push_back(enemy);
+		return true;
+	}
+	return false;
+});
 
-	m_player.SetPosition({ -400.0f,0.0f,800.0f });
+m_player.SetPosition({ -400.0f,0.0f,800.0f });
+m_camera.SetPlayer(&m_player);
 
-	InitTranslucentBlendState();
-	m_camera.SetPlayer(&m_player);
-	
+m_mainRenderTarget.Create(
+	FRAME_BUFFER_W,
+	FRAME_BUFFER_H,
+	DXGI_FORMAT_R8G8B8A8_UNORM
+);
+
+//ブレンドステートの初期化
+InitTranslucentBlendState();
+m_sprite.Init(L"Assets/Sprite/unity.dds", 1000, 1000);
 }
 
 
@@ -101,7 +108,43 @@ void Game::Update()
 	m_sprite.UpdateWorldMatrix(CVector3::Zero(), CQuaternion::Identity(), CVector3::One());
 }
 
+
+void Game::ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, RenderTarget* renderTarget, D3D11_VIEWPORT* viewport)
+{
+	ChangeRenderTarget(
+		d3dDeviceContext,
+		renderTarget->GetRenderTargetView(),
+		renderTarget->GetDepthStencilView(),
+		viewport
+	);
+}
+
+void Game::ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, ID3D11RenderTargetView* renderTarget, ID3D11DepthStencilView* depthStensil, D3D11_VIEWPORT* viewport)
+{
+	ID3D11RenderTargetView* rtTbl[] = {
+		renderTarget
+	};
+	//レンダリングターゲットの切り替え
+	d3dDeviceContext->OMSetRenderTargets(1, rtTbl, depthStensil);
+	if (viewport != nullptr) {
+		//ビューポートが指定されていたら、ビューポートも変更する。
+		d3dDeviceContext->RSSetViewports(1, viewport);
+	}
+}
 void Game::Draw()
+{
+
+}
+void Game::ForwordRender()
+{
+	//レンダリングターゲットをメインに変更する。
+	auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
+	ChangeRenderTarget(d3dDeviceContext, &m_mainRenderTarget, &m_frameBufferViewports);
+	//メインレンダリングターゲットをクリアする。
+	float clearColor[] = { 0.0f,0.0f,0.0f,1.0f };
+	m_mainRenderTarget.ClearRenderTarget(clearColor);
+}
+void Game::PostRender()
 {
 
 }
@@ -128,7 +171,6 @@ void Game::Render()
 		blendFactor,
 		0xffffffff
 	);
-	m_sprite.Draw(mView, mProj);
 	
 	//プレイヤーの描画。
 	m_player.Draw();
@@ -138,4 +180,6 @@ void Game::Render()
 	for (auto& enemy : enemyList) {
 		enemy->Draw();
 	}
+	m_sprite.Draw(mView, mProj);
+	//ポストレンダーを作る
 }

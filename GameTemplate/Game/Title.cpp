@@ -18,7 +18,7 @@ void Title::Update()
 {
 	if (g_pad[0].IsPress(enButtonA) == true) {
 		g_goMgr.NewGO<Game>();
-		delete this;
+		g_goMgr.DeleteGO(this);
 	}
 
 	m_sprite.UpdateWorldMatrix(CVector3::Zero(), CQuaternion::Identity(), CVector3::One());

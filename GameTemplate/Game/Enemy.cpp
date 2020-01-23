@@ -42,6 +42,7 @@ void Enemy::Update_Follow()
 {
 	CVector3 toPlayer = m_player->GetPosition() - m_position;
 	float len = toPlayer.Length();
+	//³‹K‰»
 	toPlayer.Normalize();
 	m_position += toPlayer * 6.0f;
 	if (len > FollowPlayer)

@@ -33,7 +33,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 {
 	//ゲームの初期化。
 	InitGame(hInstance, hPrevInstance, lpCmdLine, nCmdShow, "Game");
-	g_goMgr.NewGO<Game>();
+	g_goMgr.NewGO<Title>();
 	//ゲームループ。
 	while (DispatchWindowMessage() == true)
 	{

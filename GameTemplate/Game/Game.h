@@ -8,6 +8,7 @@
 #include "SoundEngin.h"
 #include "SoundSouce.h"
 #include "Sprite.h"
+#include "RenderTarget.h"
 
 class Game : public IGameObject
 {
@@ -19,10 +20,24 @@ public:
 	void Render();
 private:
 	/// <summary>
+	/// フォワードレンダリング
+	/// </summary>
+	void ForwordRender();
+	/// <summary>
 	/// 半透明合成のブレンドステートを初期化
 	/// </summary>
 	void InitTranslucentBlendState();
+	/// <summary>
+	/// ポストレンダリング
+	/// </summary>
+	void PostRender();
+	/// <summary>
+	/// レンダリングターゲットの切り替え
+	/// </summary>
+	void ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext,RenderTarget* renderTarget,D3D11_VIEWPORT* viewport);
+	void ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, ID3D11RenderTargetView* renderTarget, ID3D11DepthStencilView* depthstensil, D3D11_VIEWPORT* viewport);
 private:
+	RenderTarget m_mainRenderTarget;
 	SoundEngine m_soundEngine;
 	Player m_player;
 	Sprite m_sprite;
@@ -31,6 +46,8 @@ private:
 	BackGround m_ground;
 	std::vector<Enemy*> enemyList;
 	SoundSource m_bgm;
+
+	D3D11_VIEWPORT m_frameBufferViewports;
 	ID3D11BlendState* m_translucentBlendState = nullptr;
 };
 extern Game* g_game;
