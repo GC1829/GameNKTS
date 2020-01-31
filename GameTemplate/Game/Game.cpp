@@ -15,32 +15,32 @@ Game::Game()
 	
 	m_soundEngine.Init();
 
-//m_bgm.Init(L"Assets/sound/noroinouta.wav");
-//m_bgm.Play(true);
+	//m_bgm.Init(L"Assets/sound/noroinouta.wav");
+	//m_bgm.Play(true);
 
-//レベルを初期化。
-m_level.Init(L"Assets/level/School.tkl", [&](LevelObjectData& objData) {
-	if (objData.EqualName(L"enemy") == true) {
-		//Star。
-		auto enemy = new Enemy(objData.position, objData.rotation, &m_player);
-		enemyList.push_back(enemy);
-		return true;
-	}
-	return false;
+	//レベルを初期化。
+	m_level.Init(L"Assets/level/School.tkl", [&](LevelObjectData& objData) {
+		if (objData.EqualName(L"enemy") == true) {
+			//Star。
+			auto enemy = new Enemy(objData.position, objData.rotation, &m_player);
+			enemyList.push_back(enemy);
+			return true;
+		}
+		return false;
 });
 
-m_player.SetPosition({ -400.0f,0.0f,800.0f });
-m_camera.SetPlayer(&m_player);
+	m_player.SetPosition({ -400.0f,0.0f,800.0f });
+	m_camera.SetPlayer(&m_player);
 
-m_mainRenderTarget.Create(
-	FRAME_BUFFER_W,
-	FRAME_BUFFER_H,
-	DXGI_FORMAT_R8G8B8A8_UNORM
+	m_mainRenderTarget.Create(
+		FRAME_BUFFER_W,
+		FRAME_BUFFER_H,
+		DXGI_FORMAT_R8G8B8A8_UNORM
 );
 
-//ブレンドステートの初期化
-InitTranslucentBlendState();
-m_sprite.Init(L"Assets/Sprite/unity.dds", 1000, 1000);
+	//ブレンドステートの初期化
+	InitTranslucentBlendState();
+	m_sprite.Init(L"Assets/Sprite/unity.dds", 1000, 1000);
 }
 
 

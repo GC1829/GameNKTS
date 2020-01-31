@@ -47,7 +47,11 @@ private:
 	std::vector<Enemy*> enemyList;
 	SoundSource m_bgm;
 
+	Sprite m_copyMainRtToFrameBufferSprite;
 	D3D11_VIEWPORT m_frameBufferViewports;
 	ID3D11BlendState* m_translucentBlendState = nullptr;
+	ID3D11RenderTargetView* m_frameBufferRenderTargetView = nullptr;
+	ID3D11DepthStencilView* m_frameBufferDepthStencilView = nullptr;
+
 };
 extern Game* g_game;
