@@ -14,10 +14,15 @@ public:
 	{
 		m_position = pos;
 	}
+	CVector3 GetPosition()
+	{
+		return m_position;
+	}
 private:
 	bool IsFind();
 	void Update_Follow();
 	void Nomal();
+	void Damage();
 	void Turn();
 private:
 	enum EnState {

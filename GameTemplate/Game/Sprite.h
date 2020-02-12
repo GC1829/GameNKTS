@@ -18,6 +18,10 @@ public:
 	/// <param name="textureFilePath">テクスチャのファイルパス。</param>
 	void Init(const wchar_t* textureFilePath, float w, float h);
 	/// <summary>
+	/// テクスチャのSRVを指定して初期化
+	/// </summary>
+	void Init(ID3D11ShaderResourceView* srv, float w, float h);
+	/// <summary>
 	/// ワールド行列を更新。
 	/// </summary>
 	/// <param name="pos">座標</param>
@@ -30,6 +34,10 @@ public:
 	/// <param name="mView">カメラ行列</param>
 	/// /// <param name="mView">プロジェクション行列</param>
 	void Draw(CMatrix mView, CMatrix mProj);
+	/// <summary>
+	/// 描画
+	/// </summary>
+	void Draw();
 	/// <summary>
 	/// aを変位させる
 	/// </summary>
@@ -45,7 +53,11 @@ public:
 		}
 	}
 private:
-
+	/// <summary>
+	/// 初期化の共通処理
+	/// </summary>
+	void InitCommon(float w, float h);
+	/// <summary>
 	/// シェーダーをロード。
 	/// </summary>
 	void LoadShader();
@@ -83,6 +95,7 @@ private:
 	ID3D11ShaderResourceView* m_texture = nullptr;	//テクスチャにアクセスするためのインターフェース。
 	ID3D11SamplerState* m_samplerState = nullptr;	//サンプラステート。
 	CMatrix m_world = CMatrix::Identity();	//ワールド行列。
+	CVector2 m_size = CVector2::Zero();
 	float m_alpha = 1.0f;
 
 };

@@ -27,7 +27,7 @@ Game::Game()
 			return true;
 		}
 		return false;
-});
+	});
 
 	m_player.SetPosition({ -400.0f,0.0f,800.0f });
 	m_camera.SetPlayer(&m_player);
@@ -36,7 +36,15 @@ Game::Game()
 		FRAME_BUFFER_W,
 		FRAME_BUFFER_H,
 		DXGI_FORMAT_R8G8B8A8_UNORM
-);
+	);
+
+	//メインレンダリングターゲットに描かれた絵を
+	//フレームバッファにコピーするためのスプライトを初期化
+	m_copyMainRtToFrameBufferSprite.Init(
+		m_mainRenderTarget.GetRenderTargetSRV(),
+		FRAME_BUFFER_W,
+		FRAME_BUFFER_H
+	);
 
 	//ブレンドステートの初期化
 	InitTranslucentBlendState();
@@ -111,25 +119,25 @@ void Game::Update()
 
 void Game::ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, RenderTarget* renderTarget, D3D11_VIEWPORT* viewport)
 {
-	ChangeRenderTarget(
-		d3dDeviceContext,
-		renderTarget->GetRenderTargetView(),
-		renderTarget->GetDepthStencilView(),
-		viewport
-	);
+	//ChangeRenderTarget(
+	//	d3dDeviceContext,
+	//	renderTarget->GetRenderTargetView(),
+	//	renderTarget->GetDepthStencilView(),
+	//	viewport
+	//);
 }
 
 void Game::ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, ID3D11RenderTargetView* renderTarget, ID3D11DepthStencilView* depthStensil, D3D11_VIEWPORT* viewport)
 {
-	ID3D11RenderTargetView* rtTbl[] = {
-		renderTarget
-	};
-	//レンダリングターゲットの切り替え
-	d3dDeviceContext->OMSetRenderTargets(1, rtTbl, depthStensil);
-	if (viewport != nullptr) {
-		//ビューポートが指定されていたら、ビューポートも変更する。
-		d3dDeviceContext->RSSetViewports(1, viewport);
-	}
+	//ID3D11RenderTargetView* rtTbl[] = {
+	//	renderTarget
+	//};
+	////レンダリングターゲットの切り替え
+	//d3dDeviceContext->OMSetRenderTargets(1, rtTbl, depthStensil);
+	//if (viewport != nullptr) {
+	//	//ビューポートが指定されていたら、ビューポートも変更する。
+	//	d3dDeviceContext->RSSetViewports(1, viewport);
+	//}
 }
 void Game::Draw()
 {
@@ -137,23 +145,51 @@ void Game::Draw()
 }
 void Game::ForwordRender()
 {
-	//レンダリングターゲットをメインに変更する。
-	auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
-	ChangeRenderTarget(d3dDeviceContext, &m_mainRenderTarget, &m_frameBufferViewports);
-	//メインレンダリングターゲットをクリアする。
-	float clearColor[] = { 0.0f,0.0f,0.0f,1.0f };
-	m_mainRenderTarget.ClearRenderTarget(clearColor);
+	////レンダリングターゲットをメインに変更する。
+	//auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
+	//ChangeRenderTarget(d3dDeviceContext, &m_mainRenderTarget, &m_frameBufferViewports);
+	////メインレンダリングターゲットをクリアする。
+	//float clearColor[] = { 0.0f,0.0f,0.0f,1.0f };
+	//m_mainRenderTarget.ClearRenderTarget(clearColor);
+	//
 }
 void Game::PostRender()
 {
+	////レンダリングターゲットをフレームバッファに戻す
+	//auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
+	//ChangeRenderTarget(
+	//	d3dDeviceContext, 
+	//	m_frameBufferRenderTargetView, 
+	//	m_frameBufferDepthStencilView, 
+	//	&m_frameBufferViewports
+	//);
+	////ドロドロ
+	//m_copyMainRtToFrameBufferSprite.Draw();
 
+	//m_frameBufferRenderTargetView->Release();
+	//m_frameBufferDepthStencilView->Release();
 }
 
 void Game::Render()
 {
+	//描画開始
 	g_graphicsEngine->BegineRender();
 	auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
+	//d3dDeviceContext->OMGetRenderTargets(
+	//	1,
+	//	&m_frameBufferRenderTargetView,
+	//	&m_frameBufferDepthStencilView
+	//);
 
+	////ビューポートもバックアップを取っておく
+	//unsigned int numViewport = 1;
+	//d3dDeviceContext->RSGetViewports(&numViewport, &m_frameBufferViewports);
+
+	////フォワードレンダリング
+	//ForwordRender();
+
+	////ポストレンダリング
+	//PostRender();
 
 	CMatrix mView;
 	CMatrix mProj;
@@ -171,7 +207,6 @@ void Game::Render()
 		blendFactor,
 		0xffffffff
 	);
-	
 	//プレイヤーの描画。
 	m_player.Draw();
 	//レベルを描画
@@ -181,5 +216,7 @@ void Game::Render()
 		enemy->Draw();
 	}
 	m_sprite.Draw(mView, mProj);
-	//ポストレンダーを作る
+
+	//描画終了
+	g_graphicsEngine->EndRender();
 }

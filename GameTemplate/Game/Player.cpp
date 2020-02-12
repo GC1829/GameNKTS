@@ -1,10 +1,10 @@
 #include "stdafx.h"
 #include "Player.h"
+#include "Enemy.h"
 
 
 Player::Player()
 {
-	m_soundEngine.Init();
 
 	//cmoファイルの読み込み。
 	m_model.Init(L"Assets/modelData/unityChan.cmo", enFbxUpAxisZ);
@@ -36,7 +36,20 @@ Player::~Player()
 {
 }
 
+void Player::Damage()
+{
+	CVector3 toEnemy = m_enemy->GetPosition() - m_position;
+	float len = toEnemy.Length();
+	//正規化
+	toEnemy.Normalize();
+	if (len <= 50.0f)
+	{
+		HP -= 2;
+	}
+}
 void Player::Update()
+
+
 {
 	if (m_movespeed.x = g_pad[0].GetLStickXF() * -700.0f)
 	{
@@ -56,11 +69,11 @@ void Player::Update()
 	//m_animation.Update(1.0f / 30.0f);
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 
-	if (m_position.x == -400.0f)
+	/*if (m_position.x == -400.0f)
 	{
 		m_bgm.Init(L"Assets/sound/himei.wav");
 		m_bgm.Play(true);
-	}
+	}*/
 }
 void Player::Draw()
 {

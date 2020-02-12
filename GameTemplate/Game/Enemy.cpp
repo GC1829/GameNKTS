@@ -51,6 +51,10 @@ void Enemy::Update_Follow()
 	}
 }
 
+void Enemy::Damage()
+{
+}
+
 void Enemy::Turn()
 {
 	m_old.y = PositionUp;
