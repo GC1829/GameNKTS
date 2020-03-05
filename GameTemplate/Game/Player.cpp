@@ -44,7 +44,7 @@ void Player::Damage()
 	toEnemy.Normalize();
 	if (len <= 50.0f)
 	{
-		HP -= 2;
+		m_isDead = true;	//Ž€–S”»’è
 	}
 }
 void Player::Update()
@@ -74,6 +74,10 @@ void Player::Update()
 		m_bgm.Init(L"Assets/sound/himei.wav");
 		m_bgm.Play(true);
 	}*/
+	if (m_isDead == true)
+	{
+		m_sprite.Init(L"Assets/Sprite/GameOver.dds", 1600, 2400);
+	}
 }
 void Player::Draw()
 {

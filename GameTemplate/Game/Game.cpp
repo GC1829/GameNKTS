@@ -6,6 +6,7 @@
 #include "Enemy.h"
 #include "GameCamera.h"
 #include "BackGround.h"
+#include "GameOver.h"
 
 
 Game* g_game = nullptr;

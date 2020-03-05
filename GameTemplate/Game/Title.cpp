@@ -6,7 +6,7 @@ Title* g_title = nullptr;
 
 Title::Title()
 {
-	m_sprite.Init(L"Assets/Sprite/kohaku.dds", 10000, 10000);
+	m_sprite.Init(L"Assets/Sprite/Title.dds", 1600, 2400);
 }
 
 
