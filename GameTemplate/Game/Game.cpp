@@ -13,7 +13,7 @@ Game* g_game = nullptr;
 
 Game::Game()
 {
-	
+	g_game = this;
 	m_soundEngine.Init();
 
 	//m_bgm.Init(L"Assets/sound/noroinouta.wav");

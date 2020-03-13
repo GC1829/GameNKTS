@@ -18,6 +18,10 @@ public:
 	void Update();
 	void Draw();
 	void Render();
+	std::vector<Enemy*>& GetEnemyList()
+	{
+		return enemyList;
+	}
 private:
 	/// <summary>
 	/// フォワードレンダリング

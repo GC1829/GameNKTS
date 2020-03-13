@@ -14,7 +14,7 @@ public:
 	{
 		m_position = pos;
 	}
-	CVector3 GetPosition()
+	CVector3 GetEnePosition()
 	{
 		return m_position;
 	}

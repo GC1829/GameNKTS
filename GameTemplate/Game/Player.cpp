@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Game.h"
 
 
 Player::Player()
@@ -38,19 +39,25 @@ Player::~Player()
 
 void Player::Damage()
 {
-	CVector3 toEnemy = m_enemy->GetPosition() - m_position;
-	float len = toEnemy.Length();
-	//ê≥ãKâª
-	toEnemy.Normalize();
-	if (len <= 50.0f)
-	{
-		m_isDead = true;	//éÄñSîªíË
+	std::vector<Enemy*>& enelist = g_game->GetEnemyList();
+	for (int i = 1; i <= enelist.size(); i++) {
+		CVector3 toEnemy = enelist[i]->GetEnePosition() - m_position;
+		float len = toEnemy.Length();
+		//ê≥ãKâª
+		toEnemy.Normalize();
+		if (len <= 50.0f)
+		{
+			m_isDead = true;	//éÄñSîªíË
+		}
 	}
-}
+		//m_enemy->GetPosition() - m_position;
+		//float len = toEnemy.Length();
+		////ê≥ãKâª
+		//toEnemy.Normalize();
+	}
 void Player::Update()
-
-
 {
+	Damage();
 	if (m_movespeed.x = g_pad[0].GetLStickXF() * -700.0f)
 	{
 		//m_animation.Update(1.0f / 30.0f);
@@ -68,12 +75,6 @@ void Player::Update()
 	//ÉèÅ[ÉãÉhçsóÒÇÃçXêVÅB
 	//m_animation.Update(1.0f / 30.0f);
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
-
-	/*if (m_position.x == -400.0f)
-	{
-		m_bgm.Init(L"Assets/sound/himei.wav");
-		m_bgm.Play(true);
-	}*/
 	if (m_isDead == true)
 	{
 		m_sprite.Init(L"Assets/Sprite/GameOver.dds", 1600, 2400);
